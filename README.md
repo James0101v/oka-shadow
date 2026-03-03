@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shadow Partner
+
+Muay Thai shadow analysis and coaching application. Record shadowboxing rounds, receive automated technique analysis, and train with a visualized sparring partner.
+
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animation:** Framer Motion
+- **Icons:** Lucide React
+- **State:** Zustand (persisted to localStorage)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in a mobile-width browser window.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## App Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+  app/
+    page.tsx                 Home screen
+    record/page.tsx          Camera setup + recording flow
+    processing/[id]/page.tsx Analysis processing screen
+    results/[id]/page.tsx    Annotated video + insights
+    drills/[id]/page.tsx     Drill suggestions + timer
+    library/page.tsx         Session history
+    profile/page.tsx         User preferences
+  components/
+    layout/                  App shell, tab bar
+    ui/                      Score ring, session card, timeline, insight badge
+  lib/
+    types.ts                 Core type definitions
+    store.ts                 Zustand state management
+    mock-data.ts             Seed data and analysis simulation
+    utils.ts                 Formatters and severity helpers
+```
 
-## Learn More
+## Screens
 
-To learn more about Next.js, take a look at the following resources:
+| Screen | Route | Description |
+|--------|-------|-------------|
+| Home | `/` | Greeting, weekly progress, start button, recent sessions |
+| Record | `/record` | Camera setup with framing guide, countdown, recording timer |
+| Processing | `/processing/[id]` | Animated skeleton with step-by-step analysis progress |
+| Results | `/results/[id]` | Video player with fighter silhouette, shadow partner, timeline, score ring, insights |
+| Drills | `/drills/[id]` | Suggested drills with built-in round timer |
+| Library | `/library` | Full session history |
+| Profile | `/profile` | Stance, skill level, weekly goal settings |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## User Flow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Home > Start Round > Camera Setup > Record > Processing > Results > Drills
 
-## Deploy on Vercel
+Total taps from open to recording: 3-4.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design Principles
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Dark-first UI** optimized for mobile viewports
+- **Minimal friction** -- record in one tap from home
+- **Visual-first coaching** -- show, don't lecture
+- **Positive reinforcement** -- highlight good moments alongside corrections
+
+## MVP Scope
+
+### Detection (simulated in MVP)
+- Jab, cross, hook, rear roundhouse
+- Guard drop, chin lift, feet crossing, weak hip rotation, no rear pivot
+
+### Output
+- Animated fighter silhouette with reactive shadow partner
+- Color-coded timeline (green/amber/red)
+- Coaching captions during playback
+- Round score with top issues and drill suggestions
+
+## Future Work
+
+- MediaPipe/TensorFlow.js pose estimation for real analysis
+- Real video recording and annotated playback
+- Live real-time feedback
+- Voice coaching
+- Multi-round progress tracking
+- Capacitor/iOS native wrapper
